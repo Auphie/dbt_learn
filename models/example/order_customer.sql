@@ -1,4 +1,4 @@
-{{ config(materialized='table') }}
+{{ config(materialized='view') }}
 
 select 
     USER_ID AS CUSTOMER_ID,
