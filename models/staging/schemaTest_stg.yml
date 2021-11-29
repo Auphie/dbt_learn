@@ -1,0 +1,42 @@
+# if set restraint of "accepted value", be careful with the indent
+
+version: 2
+
+models:
+  - name: stg_customers
+    columns:
+      - name: customer_id
+        tests:
+          - unique
+          - not_null
+          
+  - name: stg_orders
+    columns:
+      - name: status
+        tests:
+          - not_null
+          - accepted_values:
+              values: 
+                - completed
+                - shipped
+                - returned
+                - placed
+                - return_pending
+        # values: ["completed", "shipped", "returned", "placed", "return_pending"]
+
+      - name: customer_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_customers')
+              field: customer_id 
+  
+  - name: stg_payments
+    columns:
+      - name: payment_id
+        tests:
+          - unique
+          - not_null
+      - name: order_id
+          - unique
+          - not_null   
