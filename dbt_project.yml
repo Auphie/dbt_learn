@@ -39,5 +39,5 @@ models:
         marts:
             materialized: table
         staging:
-            dbt_sample:
+            jaffle_shop:
                 materialized: view
