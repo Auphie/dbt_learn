@@ -1,0 +1,20 @@
+# each yml in respective folder is responsible for schema test while you run dbt test.
+version: 2
+
+models:
+  - name: sample_s1
+    description: "A starter dbt model"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+
+  - name: sample_s2
+    description: "A starter dbt model"
+    columns:
+      - name: id
+        description: "The primary key for this table"
+        tests:
+          - unique
+          - not_null
