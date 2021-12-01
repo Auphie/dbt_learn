@@ -36,7 +36,10 @@ models:
          # Applies to all files under models/
         example:
             materialized: view
+#            +schema: sample
         marts:
+            materialized: table
+        jinja_practice:
             materialized: table
         staging:
             jaffle_shop:
