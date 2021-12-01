@@ -1,0 +1,17 @@
+version: 2
+
+sources:
+  - name: bq_raw # the reference name to be call
+    description: raw data from dbt example and store in BQ # this keyword will document info
+    database: dbt-123456
+    schema: dbt_raw # name of the schema; in BigQuery = dataSet
+
+    tables:
+      - name: customers  # table_name
+        description: raw customer data
+        columns:
+          - name: id
+            description: customer_id, pkey
+            tests:  # keyword to check and test. This test is to examine bad raw-data level.
+              - unique
+              - not_null
