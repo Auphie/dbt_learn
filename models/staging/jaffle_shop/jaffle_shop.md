@@ -10,17 +10,4 @@ One of the following values:
 | return pending | Customer indicated they want to return this item |
 | returned       | Item has been returned                           |
 
-
 {% enddocs %}
-
-
-{% docs payment_method %}
-| payment_method    | definition                                       |
-|-------------------|--------------------------------------------------|
-| credit_card       | test 1                                           |
-| bank_transfer     | test 2                                           |
-| coupon            | test 3                                           |
-| gift_card         | test 4                                           |
-
-{% enddocs %}
-

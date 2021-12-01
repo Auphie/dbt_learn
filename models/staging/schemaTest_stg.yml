@@ -7,7 +7,6 @@ models:
     description: Extract data from jaffle_shop in BigQuery.dbt_raw
     columns:
       - name: customer_id
-        description: The pkey for stg_customers
         tests:
           - unique
           - not_null
@@ -15,11 +14,6 @@ models:
   - name: stg_orders
     description: Extract data from jaffle_shop in BigQuery.dbt_raw
     columns:
-      - name: order_id
-        description: The pkey for stg_orders
-        tests:
-          - unique
-          - not_null
       - name: order_status
         description: "{{ doc('order_status') }}"
         tests:
@@ -32,8 +26,9 @@ models:
                 - placed
                 - return_pending
         # values: ["completed", "shipped", "returned", "placed", "return_pending"]
+
       - name: customer_id
-        description: The foreign key to stg_customers.customer_id
+        description: Foreign key to stg_customers.customer_id
         tests:
           - not_null
           - relationships:
@@ -44,12 +39,9 @@ models:
     description: Extract data from jaffle_shop in BigQuery.dbt_raw
     columns:
       - name: payment_id
-        description: The pkey for the stg_payments
         tests:
           - unique
           - not_null
       - name: order_id
-        tests:
-          - not_null
-      - name: payment_method
-        description: "{{ doc('payment_method') }}"
+          - unique
+          - not_null   
