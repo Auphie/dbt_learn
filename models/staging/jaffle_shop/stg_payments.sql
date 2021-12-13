@@ -5,4 +5,4 @@ select
     STATUS as pay_status,
     {{- cents_to_dollars('AMOUNT') }} as pay_amount,
     CREATED as created_at
-from `dbt_raw.payments`
+from {{ source('bq_stripe','payment') }}
