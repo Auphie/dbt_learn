@@ -1,0 +1,35 @@
+# Uses the standard Astro deployment actions for multi-branch (dev and main) deployments. This is preferred in our case
+# because the deploy-action will both parse and run pytest within the Astro staging deployment when the deploy action
+# occurs, which does not occur with the standard GitHub integration
+name: Astronomer CI - Deploy code (Multiple Branches)
+
+on:
+  push:
+    branches: [dev, master]
+
+jobs:
+  dev-push:
+    if: github.ref == 'refs/heads/dev'
+    env:
+      ## Sets DEV Deployment API credential as an environment variable
+      ASTRO_API_TOKEN: ${{ secrets.DEV_ASTRO_API_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to Astro
+      uses: astronomer/deploy-action@v0.8.0
+      with:
+        deployment-id: "cm1pfnpqw19we01q1uj6onmfz"
+        ## Run parse and pytest when deploying in staging
+        parse: true
+        pytest: true
+  prod-push:
+    if: github.ref == 'refs/heads/main'
+    env:
+      ## Sets Prod Deployment API credential as an environment variable
+      ASTRO_API_TOKEN: ${{ secrets.PROD_ASTRO_API_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to Astro
+      uses: astronomer/deploy-action@v0.8.0
+      with:
+        deployment-id: "cm3q5d158089701nphc5l7s3h"
