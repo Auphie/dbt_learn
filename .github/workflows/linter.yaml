@@ -4,13 +4,13 @@ on:
   push:
     branches:
       - '**'
-    paths: ['models/example/*']
+    paths: ['models/example/**']
   pull_request:
     branches:
       - main
       - dev
     types: [opened, reopened, synchronize]
-    paths: ['models/example/*']
+    paths: ['models/example/**']
 
 jobs:
 # this job runs SQLFluff with a specific set of rules
