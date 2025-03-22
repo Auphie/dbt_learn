@@ -1,0 +1,27 @@
+name: lint dbt project on pr
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+# this job runs SQLFluff with a specific set of rules
+  # note the dialect is set to Snowflake, so make that specific to your setup
+  # details on linter rules: https://docs.sqlfluff.com/en/stable/rules.html
+  lint_project:
+    name: Run SQLFluff linter
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: "actions/checkout@v2"
+      - uses: "actions/setup-python@v2"
+        with:
+          python-version: "3.9"
+      - name: Install dbt-core
+        run: "pip install dbt-core~=1.3.0"
+      - name: Install SQLFluff
+        run: "pip install sqlfluff~=1.2.0"
+      - name: Install dbt templater
+        run: "pip install sqlfluff-templater-dbt~=1.2.0"
+      - name: Lint project
+        run: "sqlfluff lint models --dialect snowflake --ignore templating"
